@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sphere — L'assistant relationnel intelligent des indépendants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #2B5797;
+            --blue-dark: #1E3F6F;
+            --blue-light: #E8F0FE;
+            --blue-glow: #4A7FCC;
+            --gold: #D4A843;
+            --gold-light: #F5ECD7;
+            --dark: #0F1729;
+            --dark-mid: #1A2744;
+            --gray: #6B7B94;
+            --light: #F7F9FC;
+            --white: #FFFFFF;
+            --green: #22C55E;
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(165deg, var(--dark) 0%, var(--dark-mid) 45%, var(--blue-dark) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(74,127,204,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,168,67,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold) 0%, #E8C56A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--gold) 0%, #C49A35 100%);
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 24px rgba(212,168,67,0.3);
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212,168,67,0.45);
+        }
+
+        .hero-note {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.7;
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pain-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid #E5E9F0;
+            transition: all 0.3s ease;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .pain-icon {
+            width: 48px;
+            height: 48px;
+            background: #FEE2E2;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .pain-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .pain-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ===== INSIGHT ===== */
+        .insight {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--dark-mid) 100%);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top right, rgba(212,168,67,0.1) 0%, transparent 60%);
+        }
+
+        .insight-number {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            color: var(--gold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .insight-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin: 1rem auto 0;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .insight-source {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SOLUTION ===== */
+        .solution {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .solution .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 1rem;
+        }
+
+        .solution .section-subtitle {
+            text-align: center;
+            margin: 0 auto 4rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            border: 1px solid #E5E9F0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-glow));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.06);
+        }
+
+        .feature-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-top: 1rem;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .how .section-title {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .how .section-subtitle {
+            text-align: center;
+            margin: 0 auto 4rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-glow) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--white);
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--dark);
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .step-time {
+            display: inline-block;
+            background: var(--gold-light);
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-top: 0.8rem;
+        }
+
+        /* ===== PHONE MOCKUP ===== */
+        .mockup-section {
+            padding: 4rem 2rem 6rem;
+            background: var(--light);
+        }
+
+        .mockup-section .section-title {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+
+        .mockup-section .section-subtitle {
+            text-align: center;
+            margin: 0 auto 3rem;
+        }
+
+        .phone-mockup {
+            max-width: 380px;
+            margin: 0 auto;
+            background: var(--dark);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        .phone-screen {
+            background: var(--white);
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .phone-header {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+            padding: 3rem 1.5rem 1.5rem;
+            color: var(--white);
+        }
+
+        .phone-header-greeting {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .phone-header-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.3rem 0;
+        }
+
+        .phone-health {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.8rem;
+        }
+
+        .phone-health-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .phone-health-fill {
+            width: 72%;
+            height: 100%;
+            background: var(--green);
+            border-radius: 3px;
+        }
+
+        .phone-health-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .phone-actions-label {
+            padding: 1rem 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+        }
+
+        .phone-card {
+            margin: 0.5rem 1rem;
+            background: var(--white);
+            border: 1px solid #E5E9F0;
+            border-radius: 14px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .phone-card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 4px 16px rgba(43,87,151,0.08);
+        }
+
+        .phone-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .phone-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .phone-card-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .phone-card-reason {
+            font-size: 0.75rem;
+            color: var(--blue);
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        .phone-card-preview {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .phone-card-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 0.6rem;
+        }
+
+        .phone-btn {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .phone-btn-send {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .phone-btn-copy {
+            background: var(--blue-light);
+            color: var(--blue);
+        }
+
+        .phone-bottom {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #E5E9F0;
+        }
+
+        .phone-tab {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .phone-tab.active { color: var(--blue); }
+
+        .phone-tab-icon {
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ===== TESTIMONIAL ===== */
+        .testimonial {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .testimonial-card {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '\201C';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            top: -1.5rem;
+            left: -0.5rem;
+            font-family: 'Fraunces', serif;
+        }
+
+        .testimonial-author {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(165deg, var(--dark) 0%, var(--blue-dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212,168,67,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .cta-input {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
+            color: var(--white);
+            font-size: 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .cta-input::placeholder { color: rgba(255,255,255,0.4); }
+        .cta-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.12); }
+
+        .cta-btn {
+            padding: 16px 32px;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--gold) 0%, #C49A35 100%);
+            color: var(--dark);
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212,168,67,0.4);
+        }
+
+        .cta-note {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 1rem;
+        }
+
+        .cta-success {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .cta-success h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-success p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2rem;
+            background: var(--dark);
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .cta-form {
+                flex-direction: column;
+            }
+            .insight-box {
+                padding: 3rem 2rem;
+            }
+            .phone-mockup {
+                max-width: 340px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Beta ouverte — Places limitées
+            </div>
+            <h1>L'argent est dans <span class="highlight">votre téléphone.</span><br>Sphere vous aide à le débloquer.</h1>
+            <p class="hero-sub">L'assistant IA qui entretient votre réseau à votre place. Plus de contacts oubliés, plus de recommandations manquées. 30 secondes par jour suffisent.</p>
+            <div class="hero-cta">
+                <a href="#inscription" class="btn-primary">Rejoindre la beta gratuite →</a>
+                <span class="hero-note">Gratuit pendant toute la phase de test</span>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">80%</div>
+                    <div class="hero-stat-label">des affaires viennent<br>de la recommandation</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number"><10%</div>
+                    <div class="hero-stat-label">des indépendants entretiennent<br>leur réseau régulièrement</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">30s</div>
+                    <div class="hero-stat-label">par jour suffisent<br>avec Sphere</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="problem">
+        <div class="container">
+            <div class="section-label">Le problème</div>
+            <h2 class="section-title">Vous savez que votre réseau est votre meilleur atout.<br>Mais vous ne l'entretenez pas.</h2>
+            <p class="section-subtitle">Pas par choix. Par manque de temps, d'organisation et d'outils adaptés. Vous n'êtes pas seul — c'est le cas de 9 indépendants sur 10.</p>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">⏰</div>
+                    <h3>Pas le temps</h3>
+                    <p>Entre les rendez-vous, la prospection et l'administratif, entretenir son réseau passe toujours en dernier.</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">📇</div>
+                    <h3>Contacts en vrac</h3>
+                    <p>Vos contacts sont dans votre téléphone, dans votre tête, dans un Excel jamais mis à jour. Impossible de s'y retrouver.</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">🤷</div>
+                    <h3>Quoi dire ?</h3>
+                    <p>Vous ne savez pas quel message envoyer, quel prétexte utiliser. Vous avez peur de déranger ou de paraître commercial.</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-icon">💀</div>
+                    <h3>CRM mort</h3>
+                    <p>Votre CRM est une base de données vide. Il vous demande du travail, il ne travaille jamais pour vous.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSIGHT -->
+    <section class="insight">
+        <div class="container">
+            <div class="insight-box">
+                <div class="insight-number">80%</div>
+                <p class="insight-text">Les professionnels qui entretiennent régulièrement leur sphère d'influence génèrent <strong>80% de leurs affaires par recommandation.</strong></p>
+                <p class="insight-source">Basé sur l'analyse de 150 conseillers immobiliers — Réseau Efficity</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="solution">
+        <div class="container">
+            <div class="section-label" style="text-align:center;">La solution</div>
+            <h2 class="section-title">Sphere entretient votre réseau<br>pendant que vous travaillez.</h2>
+            <p class="section-subtitle">L'IA détermine qui contacter, quand, avec quel prétexte, sur quel canal. Vous validez en un clic. C'est tout.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-emoji">🎯</div>
+                    <h3>Actions du jour</h3>
+                    <p>Chaque matin, 3 à 5 suggestions personnalisées. Anniversaire, relance, prise de nouvelles — avec le message prêt à envoyer.</p>
+                    <span class="feature-tag">Mode Sniper</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-emoji">📰</div>
+                    <h3>Newsletter automatique</h3>
+                    <p>Chaque mois, une newsletter avec les données marché de votre zone, prête à envoyer par email ou WhatsApp. Un clic.</p>
+                    <span class="feature-tag">Mode Broadcast</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-emoji">🤖</div>
+                    <h3>Messages qui sonnent comme vous</h3>
+                    <p>L'IA apprend votre style d'écriture. Tutoiement, vouvoiement, emojis, ton — chaque message est personnalisé pour chaque contact.</p>
+                    <span class="feature-tag">IA Personnalisée</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-emoji">📲</div>
+                    <h3>Import depuis votre téléphone</h3>
+                    <p>Importez vos contacts en 1 minute. Triez-les en mode swipe — comme Tinder, mais pour votre business. Même en voiture avec le mode vocal.</p>
+                    <span class="feature-tag">Zéro Effort</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-emoji">🧠</div>
+                    <h3>Apprend tout seul</h3>
+                    <p>Sphere s'améliore silencieusement à chaque interaction. Pas de formulaire à remplir, pas de CRM à maintenir. Il apprend de vos choix.</p>
+                    <span class="feature-tag">Auto-apprentissage</span>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-emoji">💰</div>
+                    <h3>Rappel apporteur intégré</h3>
+                    <p>Chaque newsletter inclut un rappel apporteur d'affaires avec preuve sociale. Vos contacts pensent à vous au bon moment.</p>
+                    <span class="feature-tag">Recommandations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how">
+        <div class="container">
+            <div class="section-label" style="text-align:center;">Comment ça marche</div>
+            <h2 class="section-title">Opérationnel en 20 minutes.<br>30 secondes par jour ensuite.</h2>
+            <p class="section-subtitle">Sphere est conçu pour les professionnels qui n'ont pas le temps. Zéro compétence technique requise.</p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Importez vos contacts</h3>
+                    <p>Depuis votre téléphone, en suivant un guide visuel pas à pas. iPhone ou Android.</p>
+                    <span class="step-time">1 minute</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Triez en mode swipe</h3>
+                    <p>Client, prescripteur, perso ou passer. Un geste par contact. Ludique et rapide — même en mode vocal.</p>
+                    <span class="step-time">15-20 minutes</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Calibrez votre style</h3>
+                    <p>Collez quelques messages existants ou choisissez un profil. L'IA reproduit votre façon d'écrire.</p>
+                    <span class="step-time">2 minutes</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Validez chaque matin</h3>
+                    <p>3 à 5 suggestions. Vous modifiez si besoin, vous envoyez. Votre réseau s'entretient tout seul.</p>
+                    <span class="step-time">30 sec/jour</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHONE MOCKUP -->
+    <section class="mockup-section">
+        <div class="container">
+            <div class="section-label" style="text-align:center;">Aperçu</div>
+            <h2 class="section-title">Votre dashboard chaque matin</h2>
+            <p class="section-subtitle">Ouvrir, valider, fermer. Votre réseau travaille pour vous.</p>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="phone-header">
+                        <div class="phone-header-greeting">Bonjour</div>
+                        <div class="phone-header-name">Sophie 👋</div>
+                        <div class="phone-health">
+                            <div class="phone-health-bar"><div class="phone-health-fill"></div></div>
+                            <span class="phone-health-label">Réseau : 72%</span>
+                        </div>
+                    </div>
+                    <div class="phone-actions-label">4 actions aujourd'hui</div>
+                    <div class="phone-card">
+                        <div class="phone-avatar" style="background:#E8B84B;">MD</div>
+                        <div class="phone-card-content">
+                            <div class="phone-card-name">Marie Dupont</div>
+                            <div class="phone-card-reason">🎂 Anniversaire aujourd'hui</div>
+                            <div class="phone-card-preview">Bonjour Marie ! Je vous souhaite un très bel anniversaire. J'espère que vous profitez bien de votre appartement...</div>
+                            <div class="phone-card-actions">
+                                <button class="phone-btn phone-btn-send">✉️ Email</button>
+                                <button class="phone-btn phone-btn-copy">📋 WhatsApp</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-card">
+                        <div class="phone-avatar" style="background:#4A7FCC;">PL</div>
+                        <div class="phone-card-content">
+                            <div class="phone-card-name">Pierre Laurent</div>
+                            <div class="phone-card-reason">⚠️ 5 mois sans contact</div>
+                            <div class="phone-card-preview">Bonjour Pierre, comment allez-vous ? Je voulais prendre de vos nouvelles et vous partager...</div>
+                            <div class="phone-card-actions">
+                                <button class="phone-btn phone-btn-send">✉️ Email</button>
+                                <button class="phone-btn phone-btn-copy">📋 WhatsApp</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-card">
+                        <div class="phone-avatar" style="background:#22C55E;">JM</div>
+                        <div class="phone-card-content">
+                            <div class="phone-card-name">Jean Martin — Notaire</div>
+                            <div class="phone-card-reason">📊 3 ventes dans son quartier</div>
+                            <div class="phone-card-preview">Bonjour Maître, je me permets de vous informer de 3 transactions récentes rue Garibaldi...</div>
+                            <div class="phone-card-actions">
+                                <button class="phone-btn phone-btn-send">✉️ Email</button>
+                                <button class="phone-btn phone-btn-copy">📋 WhatsApp</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-bottom">
+                        <div class="phone-tab active">
+                            <span class="phone-tab-icon">🏠</span>
+                            Accueil
+                        </div>
+                        <div class="phone-tab">
+                            <span class="phone-tab-icon">👥</span>
+                            Contacts
+                        </div>
+                        <div class="phone-tab">
+                            <span class="phone-tab-icon">📰</span>
+                            Newsletter
+                        </div>
+                        <div class="phone-tab">
+                            <span class="phone-tab-icon">⚙️</span>
+                            Paramètres
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonial">
+        <div class="container">
+            <div class="testimonial-card">
+                <p class="testimonial-quote"> &nbsp;En 9 ans d'immobilier, j'ai vu que les meilleurs conseillers ont tous un point commun : ils entretiennent leur réseau. Sphere automatise ce que les 10% font manuellement — pour que les 90% restants puissent enfin en bénéficier aussi.</p>
+                <p class="testimonial-author">Romain</p>
+                <p class="testimonial-role">Entrepreneur of the Year 2023, Efficity — 27 ans d'entrepreneuriat</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="inscription">
+        <div class="cta-content">
+            <h2>Rejoignez la beta gratuite.</h2>
+            <p>Places limitées. Les premiers inscrits bénéficieront d'un accès gratuit pendant toute la phase de test.</p>
+            <div id="cta-form-container">
+                <div class="cta-form" id="signup-form">
+                    <input type="email" class="cta-input" id="email-input" placeholder="Votre email professionnel" required>
+                    <button class="cta-btn" id="signup-btn" onclick="handleSignup()">Je m'inscris →</button>
+                </div>
+                <p class="cta-note">Aucun engagement. Aucune carte bancaire.</p>
+            </div>
+            <div class="cta-success" id="success-msg">
+                <h3>✨ Vous êtes inscrit !</h3>
+                <p>Nous vous recontacterons très bientôt pour démarrer ensemble.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Sphere © 2026 — L'assistant relationnel intelligent des indépendants</p>
+    </footer>
+
+    <script>
+        function handleSignup() {
+            const email = document.getElementById('email-input').value;
+            if (email && email.includes('@')) {
+                document.getElementById('cta-form-container').style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+                // TODO: Connect to backend (Supabase) to store email
+                console.log('Signup:', email);
+            }
+        }
+
+        document.getElementById('email-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleSignup();
+        });
+
+        // Smooth scroll
+        document.querySelector('a[href="#inscription"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('inscription').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.pain-card, .feature-card, .step, .phone-mockup').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
